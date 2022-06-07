@@ -1,0 +1,70 @@
+﻿@model IEnumerable<VideoRental_DVT.Models.Video>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Videos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" /></p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            @Html.ActionLink("Video Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rented)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentId)
+            </th>
+            <th>
+                @Html.ActionLink("Return date", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rented)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VideoId">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.VideoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
